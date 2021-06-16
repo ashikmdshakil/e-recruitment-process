@@ -3,9 +3,12 @@ package com.swe.erecruitment.controller;
 import com.swe.erecruitment.model.*;
 import com.swe.erecruitment.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
@@ -232,6 +235,33 @@ public class ApplicationCOntroller {
     @ResponseBody
     public List<Evalution> getEvalutions(@RequestParam("cId") int cId){
         return evalutionJpaRepo.findByCircularIdOrderByMarks(cId);
+    }
+
+    @GetMapping("getTotalCircular")
+    @ResponseBody
+    public double getTotalCircular(@RequestParam("id") int id){
+        return circularRepo.countAllByOwnerId(id);
+    }
+
+    @GetMapping("getRequestedCircular")
+    @ResponseBody
+    public List<Circular> getRequestedCircular(@RequestParam("id") int id){
+        return circularRepo.findByApplicantsContaining(userRepo.findById(id));
+    }
+
+    @GetMapping("logoutUser")
+    @ResponseBody
+    public String logout(HttpSession session) {
+        String status = null;
+        try {
+            session.invalidate();
+            SecurityContextHolder.clearContext();
+            status = "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = "failed";
+        }
+        return status;
     }
 
 }
