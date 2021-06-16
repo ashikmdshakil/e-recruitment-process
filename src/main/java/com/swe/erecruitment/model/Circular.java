@@ -24,6 +24,7 @@ public class Circular {
     private Date startTime;
     private Date deadTime;
     private int seats;
+    @Column(length = 3000)
     private String details;
     private String token;
 

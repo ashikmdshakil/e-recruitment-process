@@ -25,6 +25,8 @@ public class ApplicationCOntroller {
     private EducationJpaRepo educationJpaRepo;
     @Autowired
     private CertificationJpaRepo certificationJpaRepo;
+    @Autowired
+    private EvalutionJpaRepo evalutionJpaRepo;
 
     @GetMapping("/")
     public String getHomePage(){
@@ -74,6 +76,12 @@ public class ApplicationCOntroller {
     @ResponseBody
     public Users getUserByEmail(@RequestParam("email") String email){
         return userRepo.findByEmail(email);
+    }
+
+    @GetMapping("getUserById")
+    @ResponseBody
+    public Users getUserById(@RequestParam("id") int id){
+        return userRepo.findById(id);
     }
 
     @PostMapping(value = "createCircular", consumes = "application/json")
@@ -198,6 +206,32 @@ public class ApplicationCOntroller {
             status = "failed";
         }
         return status;
+    }
+
+    @PostMapping(value = "saveEvalution",consumes = "application/json")
+    @ResponseBody
+    public String saveEvalution(@RequestBody Evalution evalution){
+        String status = null;
+        try {
+            evalutionJpaRepo.save(evalution);
+            status = "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = "failed";
+        }
+        return status;
+    }
+
+    @GetMapping("getEvalution")
+    @ResponseBody
+    public Evalution getEvalution(@RequestParam("aId") int aId, @RequestParam("cId") int cId){
+        return evalutionJpaRepo.findByApplicantIdAndCircularId(aId,cId);
+    }
+
+    @GetMapping("getSortedEvalution")
+    @ResponseBody
+    public List<Evalution> getEvalutions(@RequestParam("cId") int cId){
+        return evalutionJpaRepo.findByCircularIdOrderByMarks(cId);
     }
 
 }

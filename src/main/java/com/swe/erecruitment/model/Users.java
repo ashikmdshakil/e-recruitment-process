@@ -22,12 +22,6 @@ public class Users {
     private String email;
     private String password;
     private String mobileNumber;
-    private LocalDateTime createDate;
-    private LocalDateTime modifiedDate;
-    private LocalDateTime loginDate;
-    private String loginIp;
-    private LocalDateTime lastLoginDate;
-    private String lastLoginIp;
     private String address;
     private boolean isArchived = false;
     @OneToOne
@@ -82,54 +76,6 @@ public class Users {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public LocalDateTime getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(LocalDateTime loginDate) {
-        this.loginDate = loginDate;
-    }
-
-    public String getLoginIp() {
-        return loginIp;
-    }
-
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp;
-    }
-
-    public LocalDateTime getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(LocalDateTime lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
-
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp;
     }
 
     public String getAddress() {
